@@ -4,14 +4,14 @@
 #include <libopencm3/usb/usbd.h>
 
 #include <stddef.h> /* for NULL */
+#include "isr.h"
 
-#include "usb_descriptors.h"  /* dev_descriptor, config_descriptor, usb_strings, usb_set_config */
+#include "usb_descriptors.h"  /* dev_descriptor, config_descriptor, usb_strings*/
+#include "usb_cdc.h"
 
-/* Global USB device handle */
-static usbd_device *usbdev;
 
-/* Control request buffer (required by usbd_init) */
-static uint8_t usbd_control_buffer[128];
+
+
 
 /* --------------------------------------------------------------------------
  * Clock Setup
@@ -42,25 +42,6 @@ static void gpio_setup(void)
     gpio_set(GPIOC, GPIO13); /* LED off (board-dependent) */
 }
 
-/* --------------------------------------------------------------------------
- * USB Setup
- * -------------------------------------------------------------------------- */
-static void usb_setup(void)
-{
-    rcc_periph_clock_enable(RCC_OTGFS);
-    rcc_periph_reset_pulse(RST_OTGFS);
-
-    usbdev = usbd_init(&otgfs_usb_driver,
-                       &dev_descriptor,
-                       &config_descriptor,
-                       usb_strings,
-                       3,
-                       usbd_control_buffer,
-                       sizeof(usbd_control_buffer));
-
-    usbd_register_set_config_callback(usbdev, usb_set_config);
-}
-
 
 void hard_fault_handler(void)
 {
@@ -78,11 +59,10 @@ int main(void)
     clock_setup();
     gpio_setup();
 
-    usb_set_unique_serial();
-    usb_setup();
+    usb_cdc_setup();
 
     while (1) {
-        usbd_poll(usbdev);
+	usb_cdc_poll();
     }
 
     return 0;

@@ -2,7 +2,7 @@ PROJECT = usb_cdc_test
 BUILD_DIR = bin
 
 SHARED_DIR = 
-CFILES = main.c usb_descriptors.c
+CFILES = main.c usb_cdc.c usb_descriptors.c
 CFILES += 
 AFILES +=
 
