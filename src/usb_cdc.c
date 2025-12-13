@@ -7,23 +7,11 @@
 #include "usb_descriptors.h"
 #include "usb_cdc.h"
 
-
-
-
-
 /* Global USB device handle */
 static usbd_device *usbdev;
 
 /* Control request buffer (required by usbd_init) */
 static uint8_t usbd_control_buffer[128];
-
-/* --------------------------------------------------------------------------
- * Class hooks
- * -------------------------------------------------------------------------- */
-
-
-
-
 
 static enum usbd_request_return_codes
 cdc_control_request(usbd_device *dev,
@@ -136,6 +124,8 @@ void usb_cdc_setup(void)
                        sizeof(usbd_control_buffer));
 
     usbd_register_set_config_callback(usbdev, usb_set_config);
+
+
 }
 
 void usb_cdc_poll() 
@@ -143,3 +133,14 @@ void usb_cdc_poll()
     usbd_poll(usbdev);
 }
 
+void write_something_usb_cdc_0()
+{
+	char mystring[]="test string cdc0\r\n";
+        usbd_ep_write_packet(usbdev, EP_CDC0_IN, mystring, sizeof(mystring)/sizeof(mystring[0]));
+}
+
+void write_something_usb_cdc_1()
+{
+	char mystring[]="test string cdc1\r\n";
+        usbd_ep_write_packet(usbdev, EP_CDC1_IN, mystring, sizeof(mystring)/sizeof(mystring[0]));
+}

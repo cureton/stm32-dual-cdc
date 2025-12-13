@@ -61,8 +61,18 @@ int main(void)
 
     usb_cdc_setup();
 
+    int count =0;
+
     while (1) {
 	usb_cdc_poll();
+
+	count++;
+	if (count > 50000)
+        {
+	    count = 0; 
+	    write_something_usb_cdc_0();
+	    write_something_usb_cdc_1();
+        }
     }
 
     return 0;
