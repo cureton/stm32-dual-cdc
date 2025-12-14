@@ -177,6 +177,34 @@ static const struct {
 };
 
 /* --------------------------------------------------------------------------
+ * Interface Association descriptors
+ * -------------------------------------------------------------------------- */
+
+
+static const struct usb_iface_assoc_descriptor cdc0_iad[] = {{
+    .bLength            = sizeof(struct usb_iface_assoc_descriptor),
+    .bDescriptorType    = USB_DT_INTERFACE_ASSOCIATION,
+    .bFirstInterface    = 0,
+    .bInterfaceCount    = 2,
+    .bFunctionClass     = USB_CLASS_CDC,
+    .bFunctionSubClass  = USB_CDC_SUBCLASS_ACM,
+    .bFunctionProtocol  = USB_CDC_PROTOCOL_AT,
+    .iFunction          = 0,
+}};
+
+static const struct usb_iface_assoc_descriptor cdc1_iad[] = {{
+    .bLength            = sizeof(struct usb_iface_assoc_descriptor),
+    .bDescriptorType    = USB_DT_INTERFACE_ASSOCIATION,
+    .bFirstInterface    = 2,
+    .bInterfaceCount    = 2,
+    .bFunctionClass     = USB_CLASS_CDC,
+    .bFunctionSubClass  = USB_CDC_SUBCLASS_ACM,
+    .bFunctionProtocol  = USB_CDC_PROTOCOL_AT,
+    .iFunction          = 0,
+}};
+
+
+/* --------------------------------------------------------------------------
  * Interface descriptors
  * -------------------------------------------------------------------------- */
 
@@ -252,6 +280,7 @@ static const struct usb_interface_descriptor cdc1_data_iface[] = {{
 static const struct usb_interface interfaces[] = {
     {
         .num_altsetting = 1,
+	.iface_assoc    = cdc0_iad,
         .altsetting     = cdc0_comm_iface,
     },
     {
@@ -260,6 +289,7 @@ static const struct usb_interface interfaces[] = {
     },
     {
         .num_altsetting = 1,
+	.iface_assoc    = cdc1_iad,
         .altsetting     = cdc1_comm_iface,
     },
     {
@@ -289,8 +319,6 @@ const struct usb_config_descriptor config_descriptor = {
  * -------------------------------------------------------------------------- */
 
 /*  Space to populate STM32 uniw ID into as hex */
-#define SERIAL_BUFFER_LEN = 25  /* Max 126 chars */
-
 static char usb_serial[25] = "STM32 Unique ID";
 
 

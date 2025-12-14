@@ -10,8 +10,8 @@
 /* Global USB device handle */
 static usbd_device *usbdev;
 
-/* Control request buffer (required by usbd_init) */
-static uint8_t usbd_control_buffer[128];
+/* Control request buffer (required by usbd_init - WATCHOUT  must be bigger that the compelete descriptor size ) */
+static uint8_t usbd_control_buffer[256];
 
 static enum usbd_request_return_codes
 cdc_control_request(usbd_device *dev,
