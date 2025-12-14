@@ -89,6 +89,9 @@ lsusb -v
 
 ---
 
+## Windows driverless compatability
+This software has the requisit USB IAD descriptors for each CDC interface to allow it to be using without drivers or INF files. 
+
 ## License
 
 This project is provided as a reference implementation for educational and development use.  
