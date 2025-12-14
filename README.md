@@ -15,7 +15,7 @@ The project is intended as a **known-good baseline** for implementing multiple C
 ### WeAct Black Pill Reference
 
 Official WeAct STM32F411 Black Pill repository:  
-https://github.com/WeActStudio/WeActStudio.STM32F411CEU6
+https://github.com/WeActStudio/WeActStudio.MiniSTM32F4x1
 
 ---
 ## Checkout (Including Submodules)
