@@ -3,15 +3,15 @@
 #include <libopencm3/stm32/gpio.h>
 #include <libopencm3/usb/usbd.h>
 
+#include <libopencm3/cm3/cortex.h> // For __WFI();
+
+
+
 #include <stddef.h> /* for NULL */
 #include "isr.h"
 
 #include "usb_descriptors.h"  /* dev_descriptor, config_descriptor, usb_strings*/
 #include "usb_cdc.h"
-
-
-
-
 
 /* --------------------------------------------------------------------------
  * Clock Setup
@@ -64,16 +64,13 @@ int main(void)
     int count =0;
 
     while (1) {
+	
+	/* TODO = Enable USB interrupts, and call establish WFI asm to wait-for-interrutpts 
+           this is probably the right way to do it, howevre for the moment I am going to thrash on 
+           usb_poll()
+        */
+
 	usb_cdc_poll();
-
-	count++;
-	if (count > 50000)
-        {
-	    count = 0; 
-	    write_something_usb_cdc_0();
-	    write_something_usb_cdc_1();
-        }
     }
-
     return 0;
 }

@@ -64,7 +64,6 @@ static void cdc0_data_rx_cb(usbd_device *dev, uint8_t ep)
     int len = usbd_ep_read_packet(dev, EP_CDC0_OUT, buf, sizeof(buf));
     if (len > 0) {
         usbd_ep_write_packet(dev, EP_CDC0_IN, buf, len);
-        usbd_ep_write_packet(dev, EP_CDC1_IN, buf, len);
     }
 }
 
@@ -74,7 +73,6 @@ static void cdc1_data_rx_cb(usbd_device *dev, uint8_t ep)
     uint8_t buf[64];
     int len = usbd_ep_read_packet(dev, EP_CDC1_OUT, buf, sizeof(buf));
     if (len > 0) {
-        usbd_ep_write_packet(dev, EP_CDC0_IN, buf, len);
         usbd_ep_write_packet(dev, EP_CDC1_IN, buf, len);
     }
 }
@@ -131,16 +129,4 @@ void usb_cdc_setup(void)
 void usb_cdc_poll() 
 {
     usbd_poll(usbdev);
-}
-
-void write_something_usb_cdc_0()
-{
-	char mystring[]="test string cdc0\r\n";
-        usbd_ep_write_packet(usbdev, EP_CDC0_IN, mystring, sizeof(mystring)/sizeof(mystring[0]));
-}
-
-void write_something_usb_cdc_1()
-{
-	char mystring[]="test string cdc1\r\n";
-        usbd_ep_write_packet(usbdev, EP_CDC1_IN, mystring, sizeof(mystring)/sizeof(mystring[0]));
 }
