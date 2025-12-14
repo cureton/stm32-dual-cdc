@@ -19,8 +19,8 @@ enum {
 
 /* Endpoints for second CDC function */
 #define EP_CDC1_OUT     0x03  /* Bulk OUT  */
-#define EP_CDC1_IN      0x84  /* Bulk IN   */
-#define EP_CDC1_NOTIFY  0x85  /* Interrupt IN */
+#define EP_CDC1_IN      0x83  /* Bulk IN   */
+#define EP_CDC1_NOTIFY  0x84  /* Interrupt IN */
 
 /* Descriptors exposed to main.c */
 extern const struct usb_device_descriptor dev_descriptor;
