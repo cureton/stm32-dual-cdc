@@ -37,8 +37,8 @@ git submodule update --init --recursive
 
 libopencm3 must be built **before** building the application firmware.
 
-cd libopencm3  
-make TARGETS=stm32/f4
+`cd libopencm3`
+`make TARGETS=stm32/f4`
 
 ---
 
@@ -46,8 +46,8 @@ make TARGETS=stm32/f4
 
 After libopencm3 has been built:
 
-cd ../src  
-make
+`cd ../src`
+`make`
 
 ---
 
@@ -55,25 +55,24 @@ make
 
 Example using OpenOCD:
 
-openocd -f interface/stlink.cfg -f target/stm32f4x.cfg -c "program dual_cdc.elf verify reset exit"
+`openocd -f interface/stlink.cfg -f target/stm32f4x.cfg -c "program dual_cdc.elf verify reset exit"`
 
 ---
 
-## Flashing - DFU-util 
+## Flashing - dfu-util 
 
 Example using dfu-util:
-Plug the black pill into the host computer whilst  holding the BOOT0 button 
+Plug the black pill into the host computer whilst  holding the **BOOT0** button 
 
 verify that the device is in ROM DFU mode:
-sudo dfu-util -l 
+
+`sudo dfu-util -l`
 
 Program the binary file into the device:
 
-sudo dfu-util -a 0  -s 0x08000000  -D usb_cdc_test.bin
+`sudo dfu-util -a 0  -s 0x08000000  -D usb_cdc_test.bin`
 
-Press the nRST button or unplug and plug in the device with new firmare. 
-
-
+Press the **nRST** button or unplug and plug in the device with new firmare. 
 
 ---
 
