@@ -51,11 +51,29 @@ make
 
 ---
 
-## Flashing
+## Flashing - SWD interface
 
 Example using OpenOCD:
 
 openocd -f interface/stlink.cfg -f target/stm32f4x.cfg -c "program dual_cdc.elf verify reset exit"
+
+---
+
+## Flashing - DFU-util 
+
+Example using dfu-util:
+Plug the black pill into the host computer whilst  holding the BOOT0 button 
+
+verify that the device is in ROM DFU mode:
+sudo dfu-util -l 
+
+Program the binary file into the device:
+
+sudo dfu-util -a 0  -s 0x08000000  -D usb_cdc_test.bin
+
+Press the nRST button or unplug and plug in the device with new firmare. 
+
+
 
 ---
 
